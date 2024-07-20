@@ -63,3 +63,8 @@ group :development do
   # gem "spring"
 end
 
+
+gem "annotate", "~> 3.2", :group => :development
+gem "dotenv-rails", "~> 3.1", :group => :development
+
+gem "devise", "~> 4.9"
