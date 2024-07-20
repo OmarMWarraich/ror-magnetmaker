@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @lead_magnet %>
+
+<div>
+  <%= link_to "Edit this lead magnet", edit_lead_magnet_path(@lead_magnet) %> |
+  <%= link_to "Back to lead magnets", lead_magnets_path %>
+
+  <%= button_to "Destroy this lead magnet", @lead_magnet, method: :delete %>
+</div>

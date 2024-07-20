@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Lead magnets</h1>
+
+<div id="lead_magnets">
+  <% @lead_magnets.each do |lead_magnet| %>
+    <%= render lead_magnet %>
+    <p>
+      <%= link_to "Show this lead magnet", lead_magnet %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New lead magnet", new_lead_magnet_path %>
