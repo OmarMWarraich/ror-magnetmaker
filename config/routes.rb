@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :signupforms
   resources :contents
   resources :lead_magnets
   devise_for :users
@@ -9,5 +10,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "lead_magnets#index"
 end
