@@ -1,14 +1,61 @@
-<p style="color: green"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2" style="background-color: #f8f9fa; height: 100vh;">
+      <button type="button" class="btn btn-primary btn-block my-3" data-bs-toggle="modal" data-bs-target="#newLeadMagnetModal">
+        Create New Lead Magnet
+      </button>
 
-<h1>Lead magnets</h1>
-
-<div id="lead_magnets">
-  <% @lead_magnets.each do |lead_magnet| %>
-    <%= render lead_magnet %>
-    <p>
-      <%= link_to "Show this lead magnet", lead_magnet %>
-    </p>
-  <% end %>
+    <ul class="list-group" id="lead-magnet-list">
+      <% @lead_magnets.each do |lead_magnet|%>
+        <li class="list-group-item" data-controller="hover-actions">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <div class="text-truncate me-2">
+              <%= link_to lead_magnet.name, lead_magnet, data: { turbo_stream: "lead-magnet-content" }, class: "lead-magnet-content" %>
+            </div>
+            <%= link_to lead_magnet_path(lead_magnet),
+                   data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                   class: "delete-icon" do %>
+              <i class="bi bi trash"></i>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    </div>
+    <!-- Main Content --> 
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Lead Magnets</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="lead-magnet-content">
+          </div>
+        </div>
+      </div>
+  </div>
 </div>
 
-<%= link_to "New lead magnet", new_lead_magnet_path %>
+
+<div class="modal fade" id="newLeadMagnetModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newLeadMagnetModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="newLeadMagnetModalLabel">New Lead Magnet</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "form", lead_magnet: @lead_magnet %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+          
+      

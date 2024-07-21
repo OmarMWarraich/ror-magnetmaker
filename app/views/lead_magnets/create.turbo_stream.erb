@@ -1,0 +1,18 @@
+<%= turbo_stream.append "lead-magnet-list" do %>
+  <li class="list-group-item">
+    <%= link_to @lead_magnet.name, @lead_magnet, data: { turbo_frame: "lead-magnet-content" } %>
+  </li>
+<% end %>
+
+<%= turbo_stream.replace "newLeadMagnetModal" do %>
+  <script>
+    document.body.classList.remove('modal-open');
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+  </script>
+<% end %>
+
+<%= turbo_stream.replace "lead-magnet-content" do %>
+  <div id="lead-magnet-content">
+    <%= render @lead_magnet %>
+  </div>
+<% end %>

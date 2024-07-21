@@ -1,9 +1,11 @@
 class LeadMagnetsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_lead_magnet, only: %i[ show edit update destroy ]
 
   # GET /lead_magnets or /lead_magnets.json
   def index
     @lead_magnets = LeadMagnet.all
+    @lead_magnet = LeadMagnet.new
   end
 
   # GET /lead_magnets/1 or /lead_magnets/1.json
@@ -21,15 +23,17 @@ class LeadMagnetsController < ApplicationController
 
   # POST /lead_magnets or /lead_magnets.json
   def create
-    @lead_magnet = LeadMagnet.new(lead_magnet_params)
+    @lead_magnet = LeadMagnet.new(lead_magnet_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @lead_magnet.save
         format.html { redirect_to lead_magnet_url(@lead_magnet), notice: "Lead magnet was successfully created." }
         format.json { render :show, status: :created, location: @lead_magnet }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @lead_magnet.errors, status: :unprocessable_entity }
+        format.turbo_stream
       end
     end
   end
