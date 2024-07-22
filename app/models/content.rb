@@ -18,4 +18,13 @@
 #
 class Content < ApplicationRecord
   belongs_to :lead_magnet
+
+  before_save :parse_content_json
+
+  def parse_content_json
+    self.content = JSON.parse(self.content) if content.is_a?(String)
+  rescue JSON::ParserError
+    errors.add(:content, 'is not a valid JSON')
+    throw(:abort)
+  end
 end

@@ -1,22 +1,28 @@
 <div id="<%= dom_id lead_magnet %>">
-  <p>
-    <strong>User:</strong>
-    <%= lead_magnet.user_id %>
-  </p>
-
-  <p>
-    <strong>Name:</strong>
-    <%= lead_magnet.name %>
-  </p>
-
-  <p>
-    <strong>Ai template:</strong>
-    <%= lead_magnet.ai_template %>
-  </p>
-
-  <p>
-    <strong>Prompt:</strong>
-    <%= lead_magnet.prompt %>
-  </p>
-
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2" style="background-color: #f8f9fa; height: 100vh;">
+        <h5><%= @lead_magnet.name %></h5>
+        <hr>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <%= link_to "Content", lead_magnet.content, data: { turbo_stream: "lead-magnet-content" } %>
+          </li>
+          <li class="list-group-item">Email Capture</li>
+          <li class="list-group-item">Settings</li>
+        </ul>
+      </div>
+      <!-- Main Content --> 
+      <div class="col-md-10">
+        <div id="lead-magnet-content-content">
+          <h5>Content Editor</h5>
+          <hr>
+          <div data-controller="editor" data-editor-initial-content="<%= @lead_magnet.content.to_json.html_safe %>">
+            <div data-editor-target="magnet_content"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
